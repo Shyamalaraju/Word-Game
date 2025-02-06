@@ -55,7 +55,6 @@ body {
     justify-content: center;
     align-items: center;
     background: linear-gradient(#ffcc00, #ee660b);
-    overflow: hidden;
 }
 
 #start-button {

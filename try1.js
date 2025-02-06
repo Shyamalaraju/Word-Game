@@ -14,7 +14,7 @@ const timerDisplay = document.getElementById("timer-display");
 
 // Define words for the game
 let wordsObj = {
-    BOAT: ["AT", "BAT", "OAT", "TAB", "BOAT"],
+    BOAT: ["AT", "TO", "BAT", "OAT", "TAB", "BOAT"],
     CARD: ["ARC", "CAR", "CARD"],
     SHIP: ["HIP", "SIP", "SHIP"],
     GAME: ["MAG", "AGE", "GAM", "GAME"],
