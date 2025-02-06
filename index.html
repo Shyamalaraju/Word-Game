@@ -8,12 +8,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-   
+    <!-- Cover Screen -->
     <div class="cover-screen">
+        <h2 id="game-title">Word Game</h2>
         <p id="result">You won</p>
-        <p id="start">Lets Start</p>
+        <p id="start">Let's Start</p>
         <button id="start-button">Start Game</button>
     </div>
+
+    <!-- Level and Timer Section -->
+    <div class="level-timer">
+        <span id="level-display">Level: 1</span>
+        <span id="timer-display">Time: 00:00</span>
+    </div>
+
+    <!-- Main Game Container -->
     <div class="container">
         <div class="word-display"></div>
         <div class="input-container">
@@ -22,9 +31,9 @@
         <p id="err-message"></p>
         <button id="submit-button">Submit</button>
         <div class="valid-words"></div>
+        <!-- Added Stop button -->
+        <button id="stop-button">Stop</button>
     </div>
-    
-
 
     <script src="script.js"></script>
 </body>
