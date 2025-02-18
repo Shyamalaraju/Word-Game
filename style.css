@@ -151,7 +151,7 @@ body {
 }
 #stop-button {
     display: block;
-    background-color: #ff4747; /* Red color */
+    background-color: #ff4747; 
     color: white;
     border: 3px solid #000000;
     box-shadow: 0 5px #000000;
