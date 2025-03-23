@@ -17,9 +17,9 @@ let wordsObj = {
     BOAT: ["AT", "BAT", "OAT", "TAB", "BOAT"],
     CARD: ["ARC", "CAR", "CARD"],
     SHIP: ["HIP", "SIP", "SHIP"],
-    GAME: ["MAG", "AGE", "GAM", "GAME"],
+    GAME: ["MAG", "AGE", "GEM", "GAME"],
     STAR: ["SAT", "TAR", "ART", "STAR"],
-    PLAN: ["PAN", "NAP", "PLAN"],
+    PLAN: ["PAN", "lAN", "PLAN"],
 };
 
 let randomWord = "",
@@ -33,15 +33,20 @@ let timeLeft = 60;
 // Level variables
 let currentLevel = 1;
 const maxLevel = 4;
+let usedWords = []; 
 
-// Function to get a random word
-const randomValue = (arr, obj = false) => {
-    if (obj) {
-        let keysArr = Object.keys(arr);
-        return keysArr[Math.floor(Math.random() * keysArr.length)];
-    } else {
-        return arr[Math.floor(Math.random() * arr.length)];
+// Function to get a unique random word
+const getUniqueRandomWord = () => {
+    let availableWords = Object.keys(wordsObj).filter(word => !usedWords.includes(word));
+
+    if (availableWords.length === 0) {
+        usedWords = []; 
+        availableWords = Object.keys(wordsObj);
     }
+
+    let selectedWord = availableWords[Math.floor(Math.random() * availableWords.length)];
+    usedWords.push(selectedWord);
+    return selectedWord;
 };
 
 // Function to display dashes for expected words
@@ -57,7 +62,7 @@ const displayDashes = () => {
 
 // Function to start the game timer
 const startTimer = () => {
-    timeLeft = 60; // Reset timer
+    timeLeft = 60; 
     timerDisplay.innerText = `Time: ${timeLeft < 10 ? '0' + timeLeft : timeLeft}`;
     
     timer = setInterval(() => {
@@ -68,8 +73,6 @@ const startTimer = () => {
             clearInterval(timer);
             errMessage.innerText = "Time's up!";
             submitButton.disabled = true;
-
-            // Show "Time's up!" on cover screen
             result.innerText = "Time's up!";
             coverScreen.classList.remove("hide");
             container.classList.add("hide");
@@ -90,7 +93,6 @@ const selectLetter = (e) => {
 submitButton.addEventListener("click", () => {
     errMessage.innerText = "";
     inputContainer.innerText = "";
-
     let expectedOutputs = wordsObj[currentWord];
     let expectedSections = document.querySelectorAll(".expected-section");
 
@@ -105,13 +107,11 @@ submitButton.addEventListener("click", () => {
 
     if (count === expectedOutputs.length) {
         clearInterval(timer);
-
         if (currentLevel < maxLevel) {
-            currentLevel++; // Move to the next level
+            currentLevel++;
             levelDisplay.innerText = `Level: ${currentLevel}`;
-            startGame(); // Start next level
+            startGame();
         } else {
-            // Game completed at level 4
             coverScreen.classList.remove("hide");
             container.classList.add("hide");
             result.innerText = "You won!";
@@ -138,8 +138,8 @@ const startGame = () => {
     foundWords = [];
     timeLeft = 60;
 
-    // Get a random word
-    currentWord = randomValue(wordsObj, true);
+    // Get a unique random word
+    currentWord = getUniqueRandomWord();
     randomWord = currentWord.split("").sort(() => 0.5 - Math.random());
 
     displayDashes();
@@ -158,17 +158,17 @@ const startGame = () => {
 
 // Event listener for start button
 startButton.addEventListener("click", () => {
-    currentLevel = 1; // Reset to Level 1 when restarting
+    currentLevel = 1;
     levelDisplay.innerText = `Level: ${currentLevel}`;
+    usedWords = []; // Reset used words
     startGame();
 });
 
 // Event listener for stop button
 stopButton.addEventListener("click", () => {
-    clearInterval(timer); // Stop the timer
+    clearInterval(timer);
     container.classList.add("hide");
     coverScreen.classList.remove("hide");
-
     errMessage.innerText = "";
     inputContainer.innerText = "";
     wordDisplay.innerHTML = "";
